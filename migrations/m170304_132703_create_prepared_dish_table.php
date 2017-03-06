@@ -12,7 +12,7 @@ class m170304_132703_create_prepared_dish_table extends Migration
      */
     public function up()
     {
-        $this->createTable('prepared_dish', [
+        $this->createTable('ingredient_dish', [
             'id' => $this->primaryKey(),
             'ingredient_id' => $this->string(),
             'dish_id' => $this->string()
