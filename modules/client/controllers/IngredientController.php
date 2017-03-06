@@ -29,7 +29,7 @@ class IngredientController extends \yii\web\Controller
 
     public function actionSearch(){
 
-        $dishes = Dish::find()->where([ 'ingredient' => 1])->all(); // поиск блюд только с доступными ингредиентами
+        $dishes = Dish::find()->where('ingredient != 0')->all(); // поиск блюд только с доступными ингредиентами
         $ingredients = Ingredient::find()->where([ 'status' => 1])->all();
         $post = Yii::$app->request->post('Ingredient'); // массив ингредиенты полученные от юзера
         $count = count($post);
