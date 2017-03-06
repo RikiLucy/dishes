@@ -113,3 +113,8 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+input[type="radio"], input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+}

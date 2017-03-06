@@ -17,6 +17,12 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>$(document).ready(function() {
+            $(":checkbox").click(function() {
+                if($(":checked").length>5) this.checked = false;
+            });
+        });</script>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -27,7 +33,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Главная страница',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -36,11 +42,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Админка', 'url' => [\yii\helpers\Url::to(['../admin'])]],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -53,6 +57,7 @@ AppAsset::register($this);
             )
         ],
     ]);
+
     NavBar::end();
     ?>
 
