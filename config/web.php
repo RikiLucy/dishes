@@ -9,6 +9,7 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+            'layout' => 'main'
         ],
         'client' => [
             'class' => 'app\modules\client\Module',
@@ -52,7 +53,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => '/client',
+                '/search' => 'client/ingredient/search',
+                '/admin' => 'admin/ingredient/',
+                '/' => '/client/ingredient',
             ],
         ],
 
