@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+//use app\modules\client\models\Dish;
 use Yii;
 
 /**
@@ -26,6 +27,11 @@ class Ingredient extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public function getDishes(){
+        return $this->hasMany(Dish::className(), ['id' => 'dish_id'])->viaTable('ingredient_dish', ['ingredient_id' => 'id']);
+    }
+
     public function rules()
     {
         return [
@@ -42,10 +48,10 @@ class Ingredient extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'desc' => 'Desc',
+            'title' => 'Название',
+            'desc' => 'Описание',
             'img' => 'Img',
-            'status' => 'Status',
+            'status' => 'Доступность',
         ];
     }
 }

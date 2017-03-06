@@ -30,9 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'desc:ntext',
-            'img',
-            'status',
+            //'desc:ntext',
+            //'img',
+            //'status',
+            [
+                'attribute' => 'status',
+                'value' => !$model->status ? '<span class="text-danger"> Нет</span>' : '<span class="text-success"> Да</span>',
+                'format' => 'html',
+            ],
         ],
     ]) ?>
 

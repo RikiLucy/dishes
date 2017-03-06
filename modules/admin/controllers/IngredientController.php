@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\client\models\Dish;
 use Yii;
 use app\modules\admin\models\Ingredient;
 use yii\data\ActiveDataProvider;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * IngredientController implements the CRUD actions for Ingredient model.
  */
-class IngredientController extends Controller
+class IngredientController extends AppAdminController
 {
     /**
      * @inheritdoc
@@ -66,6 +67,14 @@ class IngredientController extends Controller
         $model = new Ingredient();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $ingredient = Ingredient::findOne($model->id);
+            //debug($ingredient->dishes);
+            foreach ($ingredient->dishes as $dish){ // изменение доступности блюд
+                $dish->ingredient = $model->status;
+                $dish->save();
+            }
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -85,6 +94,12 @@ class IngredientController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $ingredient = Ingredient::findOne($model->id);
+            //debug($ingredient->dishes);
+            foreach ($ingredient->dishes as $dish){ // изменение доступности блюд
+                $dish->ingredient = $model->status;
+                $dish->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
