@@ -30,9 +30,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'desc:ntext',
-            'img',
+            //'desc:ntext',
+            /*'img',
+            'ingredient.title'*/
         ],
     ]) ?>
+    <h3>Ингредиенты: </h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Название</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($ingredients as $ingredient ) : ?>
+        <tr>
+
+            <td><?= $ingredient->id ?></td>
+            <td><?= $ingredient->title ?></td>
+
+
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
 </div>

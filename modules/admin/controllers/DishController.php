@@ -2,6 +2,9 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\models\Ingredient;
+use app\modules\admin\models\IngredientDish;
+use app\modules\admin\models\PreparedDish;
 use Yii;
 use app\modules\admin\models\Dish;
 use yii\data\ActiveDataProvider;
@@ -12,7 +15,7 @@ use yii\filters\VerbFilter;
 /**
  * DishController implements the CRUD actions for Dish model.
  */
-class DishController extends Controller
+class DishController extends AppAdminController
 {
     /**
      * @inheritdoc
@@ -51,8 +54,11 @@ class DishController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $ingredients = $model->ingredients;
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'ingredients' => $ingredients
         ]);
     }
 
@@ -64,12 +70,25 @@ class DishController extends Controller
     public function actionCreate()
     {
         $model = new Dish();
+        //$dish_id = $model->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        // $ingredient = Ingredient::find()->all();
+
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->save() ) {
+            //debug($model);
+            foreach ($model->ingredient as $item){
+                $product = new IngredientDish();
+                $product->dish_id = $model->id;
+                $product->ingredient_id = $item;
+                $product->save(false);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                //'ingredient' => $ingredient
             ]);
         }
     }
@@ -84,7 +103,19 @@ class DishController extends Controller
     {
         $model = $this->findModel($id);
 
+        $prepader_dish = $model->ingredients;
+        //debug($prepader_dish);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            /*$delete_old = IngredientDish::find()->where(['dish_id' => $model->id])->all();
+            $delete_old->delete();*/
+            IngredientDish::deleteAll(['dish_id' => $model->id]);
+            foreach ($model->ingredient as $item){
+                $product = new IngredientDish();
+                $product->dish_id = $model->id;
+                $product->ingredient_id = $item;
+                $product->save(false);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

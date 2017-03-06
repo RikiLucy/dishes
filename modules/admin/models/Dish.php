@@ -25,10 +25,19 @@ class Dish extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    /*public function getPreparedDish(){
+        return $this->hasMany(PreparedDish::className(),['dish_id' => 'id']);
+    }*/
+
+    public function getIngredients(){
+        return $this->hasMany(Ingredient::className(), ['id' => 'ingredient_id'])->viaTable('ingredient_dish', ['dish_id' => 'id']);
+    }
     public function rules()
     {
         return [
             [['desc'], 'string'],
+            [['ingredient'], 'safe'],
             [['title', 'img'], 'string', 'max' => 255],
         ];
     }
@@ -40,9 +49,10 @@ class Dish extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'desc' => 'Desc',
+            'title' => 'Название',
+            'desc' => 'Описание',
             'img' => 'Img',
+            'ingredient' => 'Ингредиенты'
         ];
     }
 }
