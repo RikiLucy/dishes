@@ -7,7 +7,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `client` module
  */
-class DefaultController extends Controller
+class DefaultController extends AppController
 {
     /**
      * Renders the index view for the module
