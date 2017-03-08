@@ -18,11 +18,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script>$(document).ready(function() {
-            $(":checkbox").click(function() {
-                if($(":checked").length>5) this.checked = false;
-            });
-        });</script>
+
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -78,6 +74,11 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<script>
+        $(":checkbox").click(function() {
+            if($("label input:checkbox:checked").length>5) this.checked = false;
+        });
+    </script>
 </body>
 </html>
 <?php $this->endPage() ?>
